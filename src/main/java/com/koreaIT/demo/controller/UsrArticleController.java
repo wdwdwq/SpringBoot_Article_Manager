@@ -3,6 +3,7 @@ package com.koreaIT.demo.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,16 +47,13 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	@ResponseBody
-	public ResultData<List<Article>> showList() {
+	public String showList(Model model) {
 		
 		List<Article> articles = articleService.getArticles();
 		
-		if (articles.size() == 0) {
-			return ResultData.from("F-1", "게시물이 존재하지 않습니다");
-		}
+		model.addAttribute("articles", articles);
 		
-		return ResultData.from("S-1", "게시물 목록", articles);
+		return "usr/article/list";
 	}
 	
 	@RequestMapping("/usr/article/detail")
