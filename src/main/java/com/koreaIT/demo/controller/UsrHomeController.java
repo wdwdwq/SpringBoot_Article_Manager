@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UsrHomeController {
 
-	@RequestMapping("usr/home/main")
+	@RequestMapping("/usr/home/main")
 	public String showMain() {
 		return "usr/home/main";
 	}
@@ -15,5 +15,5 @@ public class UsrHomeController {
 	public String showRoot() {
 		return "redirect:/usr/home/main";
 	}
-
+	
 }
