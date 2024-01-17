@@ -17,6 +17,7 @@ public interface ArticleDao {
 			INSERT INTO article
 				SET regDate = NOW()
 					, updateDate = NOW()
+					, memberId = 3
 					, title = #{title}
 					, `body` = #{body}
 			""")
