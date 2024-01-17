@@ -9,6 +9,8 @@ import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Member;
 import com.koreaIT.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsrMemberController {
 	
@@ -52,5 +54,23 @@ public class UsrMemberController {
 		int id = memberService.getLastInsertId();
 		
 		return ResultData.from("S-1", "회원가입 성공", memberService.getMemberById(id));
+	}
+	
+	@RequestMapping("/usr/member/test")
+	@ResponseBody
+	public String test(HttpSession session) {
+		session.setAttribute("test", "test");
+		
+		return "session에 값 저장";
+	}
+	
+	@RequestMapping("/usr/member/test2")
+	@ResponseBody
+	public String test2(HttpSession session) {
+		if (session.getAttribute("test") != null) {
+			return "session값 불러오기" + session.getAttribute("test") + "asdasdasd";
+		}
+		
+		return "session 불러오기 실패";
 	}
 }
