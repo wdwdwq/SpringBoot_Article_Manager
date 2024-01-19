@@ -118,4 +118,17 @@ public class UsrArticleController {
 		
 		return ResultData.from("S-1", Util.f("%d번 게시물을 삭제했습니다", id));
 	}
+	
+	@RequestMapping("/usr/article/test")
+	@ResponseBody
+	public String test() {
+		return Util.jsHistoryBack("테스트입니다");
+	}
+	@RequestMapping("/usr/article/test2")
+	@ResponseBody
+	public String test2() {
+		return Util.jsReplace("테스트입니다", "list");
+	}
+	
+	
 }
