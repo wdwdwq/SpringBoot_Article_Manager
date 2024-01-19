@@ -5,8 +5,9 @@
 	<c:set var="pageTitle" value="MAIN" />
 
 <%@ include file="../common/header.jsp" %>
-	<section>
-		<div>
+
+	<section class="mt-8">
+		<div class="container mx-auto">
 			<div>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores laborum iure neque quis aspernatur debitis sequi hic accusamus dignissimos et quia assumenda iste accusantium sapiente commodi! Asperiores doloribus nemo quidem!
 			</div>
