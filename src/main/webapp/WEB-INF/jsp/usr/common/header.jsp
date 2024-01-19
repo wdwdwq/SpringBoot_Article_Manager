@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
-
 <!-- 데이지UI -->
 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
 <!-- 테일윈드 치트시트 -->
@@ -18,15 +17,14 @@
 </head>
 <body>
 	<div>
-		<div>
-			<a href="/">로고</a>
-		</div>
-
+		<div><a href="/">로고</a></div>
+		
 		<ul>
 			<li><a href="/">HOME</a></li>
 			<li><a href="/usr/article/list">LIST</a></li>
 		</ul>
 	</div>
+
 	<section>
 		<div>
 			<h1>${pageTitle } PAGE</h1>

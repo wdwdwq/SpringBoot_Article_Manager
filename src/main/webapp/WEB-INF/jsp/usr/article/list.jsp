@@ -2,12 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pagerTitle" value="LIST" />
+	<c:set var="pageTitle" value="LIST" />
 
-<%@ include file="../common/header.jsp"%>
-	<h1>LIST PAGE</h1>
-	
-	<table border="1">
+<%@ include file="../common/header.jsp" %>
+	<table>
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -27,5 +25,4 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
-	<%@ include file="../common/footer.jsp"%>
+<%@ include file="../common/footer.jsp" %>
