@@ -13,18 +13,18 @@
 					<thead class="text-lg">
 						<tr>
 							<th>번호</th>
-							<th>작성일</th>
-							<th>작성자</th>
 							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="article" items="${articles }">
 							<tr>
 								<td>${article.id }</td>
-								<td>${article.regDate }</td>
-								<td>${article.memberId }</td>
-								<td>${article.title }</td>
+								<td class="hover:underline"><a href="detail?id=${article.id }">${article.title }</a></td>
+								<td>${article.writerName }</td>
+								<td>${article.regDate.substring(2, 16) }</td>
 							</tr>
 						</c:forEach>
 					</tbody>

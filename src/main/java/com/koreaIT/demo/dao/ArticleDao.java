@@ -52,9 +52,11 @@ public interface ArticleDao {
 	public void deleteArticle(int id);
 
 	@Select("""
-			SELECT *
-				FROM article
-				ORDER BY id DESC
+			SELECT A.*, M.nickname AS writerName
+				FROM article AS A
+				INNER JOIN `member` AS M
+				ON A.memberId = M.id
+				ORDER BY A.id DESC
 			""")
 	public List<Article> getArticles();
 
@@ -62,4 +64,13 @@ public interface ArticleDao {
 			SELECT LAST_INSERT_ID();
 			""")
 	public int getLastInsertId();
+
+	@Select("""
+			SELECT A.*, M.nickname AS writerName
+				FROM article AS A
+				INNER JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE A.id = #{id}
+			""")
+	public Article forPrintArticle(int id);
 }
