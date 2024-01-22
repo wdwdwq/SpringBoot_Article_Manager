@@ -8,8 +8,9 @@ import com.koreaIT.demo.service.MemberService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Member;
 import com.koreaIT.demo.vo.ResultData;
+import com.koreaIT.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrMemberController {
@@ -63,11 +64,9 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession session, String loginId, String loginPw) {
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			return Util.jsHistoryBack("로그아웃 후 이용해주세요");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (Util.empty(loginId)) {
 			return Util.jsHistoryBack("아이디를 입력해주세요");
@@ -86,16 +85,18 @@ public class UsrMemberController {
 			return Util.jsHistoryBack("비밀번호를 확인해주세요");
 		}
 		
-		session.setAttribute("loginedMemberId", member.getId());
+		rq.login(member);
 		
 		return Util.jsReplace(Util.f("%s 회원님 환영합니다~", member.getNickname()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession session) {
+	public String doLogout(HttpServletRequest req) {
 		
-		session.removeAttribute("loginedMemberId");
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		rq.logout();
 		
 		return Util.jsReplace("정상적으로 로그아웃 되었습니다", "/");
 	}

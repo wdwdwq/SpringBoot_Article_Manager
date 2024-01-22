@@ -14,12 +14,13 @@ public class Rq {
 	@Getter
 	private int loginedMemberId;
 	private HttpServletResponse resp;
+	private HttpSession session;
 	
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		
 		this.resp = resp;
 		
-		HttpSession session = req.getSession();
+		this.session = req.getSession();
 		
 		int loginedMemberId = 0;
 		
@@ -38,5 +39,13 @@ public class Rq {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void login(Member member) {
+		this.session.setAttribute("loginedMemberId", member.getId());
+	}
+
+	public void logout() {
+		this.session.removeAttribute("loginedMemberId");
 	}
 }
