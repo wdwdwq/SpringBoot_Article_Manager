@@ -22,6 +22,7 @@
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">HOME</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
 		</ul>
 	</div>
 

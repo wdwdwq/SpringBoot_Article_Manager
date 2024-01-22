@@ -12,7 +12,7 @@
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores laborum iure neque quis aspernatur debitis sequi hic accusamus dignissimos et quia assumenda iste accusantium sapiente commodi! Asperiores doloribus nemo quidem!
 			</div>
 			<div>
-				안녕하세요
+				<a href="/usr/member/login" class="px-4 py-2 bg-blue-500 text-white rounded-md">LOGIN</a>
 			</div>
 		</div>	
 	</section>
