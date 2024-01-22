@@ -27,11 +27,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doWrite(HttpServletRequest req, String title, String body) {
 		
-		Rq rq = new Rq(req);
-		
-		if (rq.getLoginedMemberId() == 0) {
-			return Util.jsHistoryBack("로그인 후 이용해주세요");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (Util.empty(title)) {
 			return Util.jsHistoryBack("제목을 입력해주세요");
@@ -61,7 +57,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 		
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.forPrintArticle(id);
 		
@@ -75,11 +71,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body) {
 		
-		Rq rq = new Rq(req);
-		
-		if (rq.getLoginedMemberId() == 0) {
-			return Util.jsHistoryBack("로그인 후 이용해주세요");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -100,11 +92,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
 		
-		Rq rq = new Rq(req);
-		
-		if (rq.getLoginedMemberId() == 0) {
-			return Util.jsHistoryBack("로그인 후 이용해주세요");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getArticleById(id);
 		
