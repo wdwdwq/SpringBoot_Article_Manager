@@ -19,9 +19,10 @@ public interface ArticleDao {
 					, updateDate = NOW()
 					, memberId = #{memberId}
 					, title = #{title}
+					, boardId = #{boardId}
 					, `body` = #{body}
 			""")
-	public void writeArticle(int memberId, String title, String body);
+	public void writeArticle(int memberId, String title, String body, int boardId);
 	
 	@Select("""
 			SELECT *
@@ -81,4 +82,5 @@ public interface ArticleDao {
 				WHERE boardId = #{boardId}
 			""")
 	public int getArticlesCnt(int boardId);
+
 }
