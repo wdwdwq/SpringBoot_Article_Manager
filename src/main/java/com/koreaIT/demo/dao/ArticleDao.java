@@ -74,4 +74,11 @@ public interface ArticleDao {
 				WHERE A.id = #{id}
 			""")
 	public Article forPrintArticle(int id);
+
+	@Select("""
+			SELECT COUNT(*)
+				FROM article
+				WHERE boardId = #{boardId}
+			""")
+	public int getArticlesCnt(int boardId);
 }
