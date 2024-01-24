@@ -20,7 +20,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="article" items="${articles }">
-							<tr>
+							<tr class="hover">
 								<td>${article.id }</td>
 								<td class="hover:underline"><a href="detail?id=${article.id }">${article.title }</a></td>
 								<td>${article.writerName }</td>
