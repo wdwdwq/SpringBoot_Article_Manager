@@ -56,9 +56,10 @@ public interface ArticleDao {
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
+				WHERE A.boardId = #{boardId}
 				ORDER BY A.id DESC
 			""")
-	public List<Article> getArticles();
+	public List<Article> getArticles(int boardId);
 
 	@Select("""
 			SELECT LAST_INSERT_ID();
