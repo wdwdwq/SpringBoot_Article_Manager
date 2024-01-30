@@ -31,6 +31,10 @@
 						<td>${article.writerName }</td>
 					</tr>
 					<tr>
+						<th>추천</th>
+						<td>${article.point }개</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>${article.title }</td>
 					</tr>

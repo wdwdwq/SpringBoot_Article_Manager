@@ -37,6 +37,14 @@ CREATE TABLE board(
 	`name` VARCHAR(20) NOT NULL COMMENT '게시판 이름'
 );
 
+CREATE TABLE recommendPoint(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	memberId INT UNSIGNED NOT NULL,
+	relTypeCode VARCHAR(20) NOT NULL COMMENT '관련 데이터 타입 코드',
+	relId INT UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+	`point` INT UNSIGNED NOT NULL DEFAULT 0
+);
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -79,6 +87,16 @@ nickname = '테스트1',
 cellphoneNum = '010-1111-1111',
 email = 'test1@test.com';
 
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'test2',
+loginPw = 'test2',
+`name` = '테스트2',
+nickname = '테스트2',
+cellphoneNum = '010-2222-2222',
+email = 'test2@test.com';
+
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -90,8 +108,38 @@ updateDate = NOW(),
 `code` = 'free',
 `name` = '자유';
 
+# 2번 회원이 1번 게시물에 좋아요
+INSERT INTO recommendPoint
+SET memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
+# 2번 회원이 3번 게시물에 좋아요
+INSERT INTO recommendPoint
+SET memberId = 2,
+relTypeCode = 'article',
+relId = 3,
+`point` = 1;
+
+# 3번 회원이 2번 게시물에 좋아요
+INSERT INTO recommendPoint
+SET memberId = 3,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+# 3번 회원이 1번 게시물에 좋아요
+INSERT INTO recommendPoint
+SET memberId = 3,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
 SELECT * FROM article;
 SELECT * FROM `member`;
+SELECT * FROM board;
+SELECT * FROM recommendPoint;
 
 /*
 insert into article

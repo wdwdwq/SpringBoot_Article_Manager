@@ -34,6 +34,8 @@
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
+							<th>조회수</th>
+							<th>추천수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,6 +45,8 @@
 								<td class="hover:underline"><a href="detail?id=${article.id }">${article.title }</a></td>
 								<td>${article.writerName }</td>
 								<td>${article.regDate.substring(2, 16) }</td>
+								<td>${article.hitCnt }</td>
+								<td>${article.point }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
