@@ -39,6 +39,23 @@
 					<a class="btn btn-outline btn-sm" href="write">글쓰기</a>
 				</div>
 			</c:if>
+			<div class="mt-2 flex justify-center">
+				<div class="join">
+					<c:if test="${from != 1 }">
+						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=1">&lt;&lt;</a>
+						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=${from - 1 }">&lt;</a>
+					</c:if>
+					
+					<c:forEach begin="${from }" end="${end }" var="i">
+						<a class="join-item btn btn-square btn-sm ${page == i ? 'btn-active' : '' }" href="?boardId=${board.id }&page=${i }">${i }</a>
+					</c:forEach>
+					
+					<c:if test="${end != pagesCnt }">
+						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=${end + 1 }">&gt;</a>
+						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=${pagesCnt }">&gt;&gt;</a>
+					</c:if>
+				</div>
+			</div>
 		</div>
 	</section>
 	

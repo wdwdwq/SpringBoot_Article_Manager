@@ -10,8 +10,6 @@ import com.koreaIT.demo.vo.Member;
 import com.koreaIT.demo.vo.ResultData;
 import com.koreaIT.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
 public class UsrMemberController {
 	
