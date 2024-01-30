@@ -8,8 +8,23 @@
 
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
-			<div class="mb-2 text-base">
+			<div class="mb-2 text-base flex justify-between">
 				<div><span>총 : ${articlesCnt }개</span></div>
+				
+				<div>
+					<form>
+						<input name="boardId" type="hidden" value="${board.id }" />
+						<select class="select select-info select-sm" data-value="${searchKeywordType }" name="searchKeywordType">
+							<option value="title">제목</option>
+							<option value="body">내용</option>
+							<option value="title,body">제목 + 내용</option>
+						</select>
+						
+						<input class="ml-2 input input-bordered input-info w-60 input-sm" name="searchKeyword" type="text" value="${searchKeyword }" placeholder="검색어를 입력해주세요" maxlength="20"/>
+						
+						<button class="ml-2 btn btn-outline btn-sm">검색</button>
+					</form>
+				</div>
 			</div>
 			<div>
 				<table class="table table-lg">
@@ -41,18 +56,20 @@
 			</c:if>
 			<div class="mt-2 flex justify-center">
 				<div class="join">
+					<c:set var="baseUri" value="?boardId=${board.id }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }"/>
+				
 					<c:if test="${from != 1 }">
-						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=1">&lt;&lt;</a>
-						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=${from - 1 }">&lt;</a>
+						<a class="join-item btn btn-square btn-sm" href="${baseUri }&page=1">&lt;&lt;</a>
+						<a class="join-item btn btn-square btn-sm" href="${baseUri }&page=${from - 1 }">&lt;</a>
 					</c:if>
 					
 					<c:forEach begin="${from }" end="${end }" var="i">
-						<a class="join-item btn btn-square btn-sm ${page == i ? 'btn-active' : '' }" href="?boardId=${board.id }&page=${i }">${i }</a>
+						<a class="join-item btn btn-square btn-sm ${page == i ? 'btn-active' : '' }" href="${baseUri }&page=${i }">${i }</a>
 					</c:forEach>
 					
 					<c:if test="${end != pagesCnt }">
-						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=${end + 1 }">&gt;</a>
-						<a class="join-item btn btn-square btn-sm" href="?boardId=${board.id }&page=${pagesCnt }">&gt;&gt;</a>
+						<a class="join-item btn btn-square btn-sm" href="${baseUri }&page=${end + 1 }">&gt;</a>
+						<a class="join-item btn btn-square btn-sm" href="${baseUri }&page=${pagesCnt }">&gt;&gt;</a>
 					</c:if>
 				</div>
 			</div>

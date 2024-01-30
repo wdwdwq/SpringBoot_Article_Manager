@@ -53,15 +53,33 @@ public interface ArticleDao {
 	public void deleteArticle(int id);
 
 	@Select("""
+			<script>
 			SELECT A.*, M.nickname AS writerName
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
 				WHERE A.boardId = #{boardId}
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordType == 'title'">
+							AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'body'">
+							AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<otherwise>
+							AND (
+								title LIKE CONCAT('%', #{searchKeyword}, '%')
+								OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							)
+						</otherwise>
+					</choose>
+				</if>
 				ORDER BY A.id DESC
 				LIMIT #{limitStart}, #{itemsInAPage}
+			</script>
 			""")
-	public List<Article> getArticles(int boardId, int limitStart, int itemsInAPage);
+	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int limitStart, int itemsInAPage);
 
 	@Select("""
 			SELECT LAST_INSERT_ID();
@@ -78,9 +96,27 @@ public interface ArticleDao {
 	public Article forPrintArticle(int id);
 
 	@Select("""
+			<script>
 			SELECT COUNT(*)
 				FROM article
 				WHERE boardId = #{boardId}
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordType == 'title'">
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordType == 'body'">
+							AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<otherwise>
+							AND (
+								title LIKE CONCAT('%', #{searchKeyword}, '%')
+								OR `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+							)
+						</otherwise>
+					</choose>
+				</if>
+			</script>
 			""")
-	public int getArticlesCnt(int boardId);
+	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword);
 }
