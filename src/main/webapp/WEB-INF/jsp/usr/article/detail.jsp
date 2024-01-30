@@ -9,6 +9,28 @@
 	<script>
 		$(document).ready(function(){
 			getRecommendPoint();
+			
+			$('#recommendBtn').click(function(){
+				let recommendBtn = $('#recommendBtn').hasClass('btn-active');
+				
+				$.ajax({
+					url : "../recommendPoint/doRecommendPoint",
+					method : "get",
+					data : {
+						"relTypeCode" : "article",
+						"relId" : ${article.id },
+						"recommendBtn" : recommendBtn
+					},
+					dataType : "text",
+					success : function(data){
+					},
+					error : function(xhr, status, error){
+						console.error("ERROR : " + status + " - " + error);
+					}
+				})
+				
+				location.reload();
+			})
 		})
 	
 		const getRecommendPoint = function(){
@@ -21,7 +43,9 @@
 				},
 				dataType : "json",
 				success : function(data){
-					console.log(data);
+					if (data.success) {
+						$('#recommendBtn').addClass('btn-active');
+					}
 				},
 				error : function(xhr, status, error){
 					console.error("ERROR : " + status + " - " + error);
@@ -62,12 +86,7 @@
 							</c:if>
 							
 							<c:if test="${rq.loginedMemberId != 0}">
-								<c:if test="${recommendPoint == null }">
-									<a class="btn btn-outline btn-xs mr-8" href="../recommendPoint/insertPoint?id=${article.id }&relTypeCode=article">좋아요👍</a>
-								</c:if>
-								<c:if test="${recommendPoint != null }">
-									<a class="btn btn-outline btn-active btn-xs mr-8" href="../recommendPoint/deletePoint?id=${article.id }&relTypeCode=article">좋아요👍</a>
-								</c:if>
+								<button id="recommendBtn" class="btn btn-outline btn-xs mr-8">좋아요👍</button>
 								<span>${article.point }개</span>
 							</c:if>
 							
