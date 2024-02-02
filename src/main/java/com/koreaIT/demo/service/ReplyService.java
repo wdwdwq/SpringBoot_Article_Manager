@@ -32,4 +32,8 @@ public class ReplyService {
 	public void deleteReply(int id) {
 		replyDao.deleteReply(id);
 	}
+
+	public Reply forPrintReply(int id) {
+		return replyDao.forPrintReply(id);
+	}
 }

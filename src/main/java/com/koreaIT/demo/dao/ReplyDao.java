@@ -46,4 +46,14 @@ public interface ReplyDao {
 				WHERE id = #{id}
 			""")
 	public void deleteReply(int id);
+
+	@Select("""
+			SELECT R.*
+					, M.nickname AS writerName
+				FROM reply AS R
+				INNER JOIN `member` AS M
+				ON R.memberId = M.id
+				WHERE R.id = #{id}
+			""")
+	public Reply forPrintReply(int id);
 }

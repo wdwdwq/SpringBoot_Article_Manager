@@ -126,6 +126,60 @@
 			
 			form.submit();
 		}
+		
+		let originalForm = null;
+		let originalId = null;
+		
+		const replyModify_getForm = function(replyId){
+			
+			if (originalForm != null) {
+				replyModify_cancle(originalId);
+			}
+			
+			$.ajax({
+				url : "../reply/getReplyContent",
+				method : "get",
+				data : {
+					"id" : replyId
+				},
+				dataType : "json",
+				success : function(data){
+					
+					let replyContent = $('#' + replyId);
+					
+					originalId = replyId;
+					originalForm = replyContent.html();
+					
+					let addHtml = `
+						<form action="../reply/doModify" method="post" onsubmit="replyForm_onSubmit(this); return false;">
+							<input type="hidden" name="id" value="\${data.data.id }"/>
+							<div class="mt-4 border border-gray-500 rounded-lg p-4">
+								<div class="mb-2">\${data.data.writerName}</div>
+								<textarea class="textarea textarea-bordered textarea-info w-full" name="body" placeholder="댓글을 작성해보세요">\${data.data.body}</textarea>
+								<div class="flex justify-end">
+									<button onclick="replyModify_cancle(\${replyId});" class="btn btn-outline btn-sm mr-2">취소</button>
+									<button class="btn btn-outline btn-sm">수정</button>
+								</div>
+							</div>
+						</form>
+					`;
+					
+					replyContent.empty().html(addHtml);
+				},
+				error : function(xhr, status, error){
+					console.error("ERROR : " + status + " - " + error);
+				}
+			})
+		}
+		
+		const replyModify_cancle = function(replyId){
+			let replyContent = $('#' + replyId)
+			
+			replyContent.html(originalForm);
+			
+			originalId = null;
+			originalForm = null;
+		}
 	</script>
 	
 	<section class="my-8 text-base">
@@ -133,9 +187,9 @@
 			<div class="text-lg">댓글</div>
 			
 			<c:forEach var="reply" items="${replies }">
-				<div class="py-3 pl-16 border-bottom-line">
+				<div id="${reply.id }" class="py-3 pl-16 border-bottom-line">
 					<div class="flex justify-between items-end">
-						<div>${reply.writerName }</div>
+						<div class="text-yellow-800">${reply.writerName }</div>
 						
 						<c:if test="${rq.loginedMemberId == reply.memberId }">
 							<div class="dropdown dropdown-end">
@@ -143,7 +197,7 @@
 							    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
 							    </button>
 						    	<ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
-						    		<li><a>수정</a></li>
+						    		<li><a onclick="replyModify_getForm(${reply.id});">수정</a></li>
 						    		<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
 						    	</ul>
 						    </div>
