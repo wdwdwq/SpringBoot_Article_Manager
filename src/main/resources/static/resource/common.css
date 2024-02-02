@@ -9,3 +9,7 @@ html > body {
 	font-family: 'NPSfontBold';
 /*	text-underline-position: under;*/
 }
+
+.border-bottom-line {
+	border-bottom: 1px solid #afafaf;
+}
