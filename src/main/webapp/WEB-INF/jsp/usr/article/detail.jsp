@@ -98,7 +98,7 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>${article.body }</td>
+						<td>${article.getForPrintBody() }</td>
 					</tr>
 				</table>
 			</div>
@@ -130,19 +130,27 @@
 	
 	<section class="my-8 text-base">
 		<div class="container mx-auto px-3">
-			<div>댓글</div>
-			<form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
-				<input type="hidden" name="relTypeCode" value="article"/>
-				<input type="hidden" name="relId" value="${article.id }"/>
-				<div class="mt-4 border border-gray-500 rounded-lg p-4">
-					<div class="mb-2">닉네임</div>
-					<textarea class="textarea textarea-bordered textarea-info w-full" name="body" placeholder="댓글을 작성해보세요"></textarea>
-					<div class="flex justify-end"><button class="btn btn-outline btn-sm">작성</button>
-					<a class="btn btn-outline btn-sm" href="modify?id=${article.id }">수정</a>
-					<a class="btn btn-outline btn-sm" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
-					</div>
+			<div class="text-lg">댓글</div>
+			
+			<c:forEach var="reply" items="${replies }">
+				<div class="py-2 pl-16 border-bottom-line">
+					<div>${reply.writerName }</div>
+					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
+					<div class="text-xs text-gray-400">${reply.updateDate }</div>
 				</div>
-			</form>
+			</c:forEach>
+			
+			<c:if test="${rq.loginedMemberId != 0 }">
+				<form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
+					<input type="hidden" name="relTypeCode" value="article"/>
+					<input type="hidden" name="relId" value="${article.id }"/>
+					<div class="mt-4 border border-gray-500 rounded-lg p-4">
+						<div class="mb-2">${rq.loginedMemberNickname }</div>
+						<textarea class="textarea textarea-bordered textarea-info w-full" name="body" placeholder="댓글을 작성해보세요"></textarea>
+						<div class="flex justify-end"><button class="btn btn-outline btn-sm">작성</button></div>
+					</div>
+				</form>
+			</c:if>
 		</div>
 	</section>
 	
