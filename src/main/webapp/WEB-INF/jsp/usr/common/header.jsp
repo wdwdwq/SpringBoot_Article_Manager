@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>${pageTitle }</title>
+
 <link rel="shortcut icon" href="/resource/images/favicon.ico" />
+
 <!-- 데이지UI -->
 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
 <!-- 테일윈드 치트시트 -->
@@ -27,6 +29,7 @@
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1">NOTICE</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2">FREE</a></li>
 			<c:if test="${rq.loginedMemberId == 0 }">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/join">JOIN</a></li>
 				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
 			</c:if>
 			<c:if test="${rq.loginedMemberId != 0 }">

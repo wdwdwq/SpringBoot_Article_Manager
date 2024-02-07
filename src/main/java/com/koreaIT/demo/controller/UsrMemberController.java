@@ -21,40 +21,60 @@ public class UsrMemberController {
 		this.rq = rq;
 	}
 	
-	@RequestMapping("/usr/member/doJoin")
+	@RequestMapping("/usr/member/join")
+	public String join() {
+		return "usr/member/join";
+	}
+	
+	@RequestMapping("/usr/member/loginIdDupChk")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public ResultData loginIdDupChk(String loginId) {
 		
 		if (Util.empty(loginId)) {
 			return ResultData.from("F-1", "아이디를 입력해주세요");
-		}
-		if (Util.empty(loginPw)) {
-			return ResultData.from("F-2", "비밀번호를 입력해주세요");
-		}
-		if (Util.empty(name)) {
-			return ResultData.from("F-3", "이름을 입력해주세요");
-		}
-		if (Util.empty(nickname)) {
-			return ResultData.from("F-4", "닉네임을 입력해주세요");
-		}
-		if (Util.empty(cellphoneNum)) {
-			return ResultData.from("F-5", "전화번호를 입력해주세요");
-		}
-		if (Util.empty(email)) {
-			return ResultData.from("F-6", "이메일을 입력해주세요");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if (member != null) {
-			return ResultData.from("F-D", Util.f("%s은(는) 이미 사용중인 아이디입니다", loginId));
+			return ResultData.from("F-2", Util.f("%s은(는) 이미 사용중인 아이디입니다", loginId));
+		}
+		
+		return ResultData.from("S-1", Util.f("%s은(는) 사용 가능한 아이디입니다", loginId));
+	}
+	
+	@RequestMapping("/usr/member/doJoin")
+	@ResponseBody
+	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		
+		if (Util.empty(loginId)) {
+			return Util.jsHistoryBack("아이디를 입력해주세요");
+		}
+		if (Util.empty(loginPw)) {
+			return Util.jsHistoryBack("비밀번호를 입력해주세요");
+		}
+		if (Util.empty(name)) {
+			return Util.jsHistoryBack("이름을 입력해주세요");
+		}
+		if (Util.empty(nickname)) {
+			return Util.jsHistoryBack("닉네임을 입력해주세요");
+		}
+		if (Util.empty(cellphoneNum)) {
+			return Util.jsHistoryBack("전화번호를 입력해주세요");
+		}
+		if (Util.empty(email)) {
+			return Util.jsHistoryBack("이메일을 입력해주세요");
+		}
+		
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if (member != null) {
+			return Util.jsHistoryBack(Util.f("%s은(는) 이미 사용중인 아이디입니다", loginId));
 		}
 		
 		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		int id = memberService.getLastInsertId();
-		
-		return ResultData.from("S-1", "회원가입 성공", memberService.getMemberById(id));
+		return Util.jsReplace(Util.f("%s님의 가입이 완료되었습니다", name), "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
