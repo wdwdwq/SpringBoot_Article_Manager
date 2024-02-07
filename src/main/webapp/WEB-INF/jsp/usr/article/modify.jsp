@@ -5,32 +5,13 @@
 	<c:set var="pageTitle" value="MODIFY" />
 
 <%@ include file="../common/header.jsp" %>
-
-	<script>
-		const modifyForm_onSubmit = function(form) {
-			form.title.value = form.title.value.trim();
-			form.body.value = form.body.value.trim();
-			
-			if (form.title.value.length == 0) {
-				alert('제목을 입력해주세요');
-				form.title.focus();
-				return;
-			}
-			
-			if (form.body.value.length == 0) {
-				alert('내용을 입력해주세요');
-				form.body.focus();
-				return;
-			}
-			
-			form.submit();
-		}
-	</script>
+<%@ include file="../common/toastUiEditorLib.jsp" %>
 
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
-			<form action="doModify" method="post" onsubmit="modifyForm_onSubmit(this); return false;">
+			<form action="doModify" method="post" onsubmit="submitForm(this); return false;">
 				<input name="id" type="hidden" value="${article.id }" />
+				<input name="body" type="hidden"/>
 				<div>
 					<table class="table table-lg">
 						<tr>
@@ -55,7 +36,11 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea class="textarea textarea-bordered textarea-info w-9/12" name="body" placeholder="내용을 입력해주세요">${article.body }</textarea></td>
+							<td>
+								<div class="toast-ui-editor">
+									<script type="text/x-template">${article.body }</script>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">수정</button></td>

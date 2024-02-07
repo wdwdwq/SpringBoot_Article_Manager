@@ -5,6 +5,7 @@
 	<c:set var="pageTitle" value="DETAIL" />
 
 <%@ include file="../common/header.jsp" %>
+<%@ include file="../common/toastUiEditorLib.jsp" %>
 
 	<script>
 		$(function(){
@@ -98,7 +99,11 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>${article.getForPrintBody() }</td>
+						<td>
+							<div class="toast-ui-viewer">
+								<script type="text/x-template">${article.body }</script>
+							</div>
+						</td>
 					</tr>
 				</table>
 			</div>

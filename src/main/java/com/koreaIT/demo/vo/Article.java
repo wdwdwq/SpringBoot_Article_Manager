@@ -18,8 +18,4 @@ public class Article {
 	
 	private int point;
 	private String writerName;
-	
-	public String getForPrintBody() {
-		return this.body.replaceAll("\n", "<br />");
-	}
 }

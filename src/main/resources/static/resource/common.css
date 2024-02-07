@@ -5,9 +5,13 @@
     font-style: normal;
 }
 
-html > body {
+html > body, html > body .toast-ui-editor .ProseMirror, html > body .toastui-editor-contents {
 	font-family: 'NPSfontBold';
-/*	text-underline-position: under;*/
+	text-underline-position: under;
+}
+
+html > body .toast-ui-editor .ProseMirror, html > body .toastui-editor-contents {
+	font-size: 1.25rem;
 }
 
 .border-bottom-line {
