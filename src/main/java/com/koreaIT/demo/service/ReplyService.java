@@ -38,6 +38,6 @@ public class ReplyService {
 	}
 
 	public void modifyReply(int id, String body) {
-		 replyDao.modifyReply(id,body);
+		replyDao.modifyReply(id, body);
 	}
 }

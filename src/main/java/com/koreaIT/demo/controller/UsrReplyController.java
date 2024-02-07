@@ -61,10 +61,11 @@ public class UsrReplyController {
 			return Util.jsHistoryBack("해당 댓글에 대한 권한이 없습니다");
 		}
 		
-		replyService.modifyReply(id,body);
+		replyService.modifyReply(id, body);
 		
 		return Util.jsReplace(Util.f("%d번 댓글을 수정했습니다", id), Util.f("../article/detail?id=%d", reply.getRelId()));
 	}
+	
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {

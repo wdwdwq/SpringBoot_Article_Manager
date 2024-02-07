@@ -57,13 +57,12 @@ public interface ReplyDao {
 				WHERE R.id = #{id}
 			""")
 	public Reply forPrintReply(int id);
-	
+
 	@Update("""
 			UPDATE reply
 				SET updateDate = NOW()
-					,`body` = #{body}
-					WHERE id = #{id}
+					, `body` = #{body}
+				WHERE id = #{id}
 			""")
 	public void modifyReply(int id, String body);
-	
 }
